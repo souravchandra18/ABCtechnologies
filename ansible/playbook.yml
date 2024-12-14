@@ -11,11 +11,10 @@
       register: login_result
       failed_when: login_result.rc != 0
 
-    - name: Pull Docker image from ECR
+    - name: Pull Docker image
       docker_image:
         name: 149536492184.dkr.ecr.us-east-1.amazonaws.com/demo-app:latest
         source: pull
-      register: pull_result
 
     - name: Create and start Docker container
       docker_container:
