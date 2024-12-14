@@ -1,10 +1,10 @@
 - hosts: localhost
   connection: local
   vars:
-    ansible_python_interpreter: /usr/bin/python3
+    ansible_python_interpreter: /usr/bin/python2
   tasks:
     - name: Ensure the system is up to date
-      dnf:
+      yum:
         name: "*"
         state: latest
         
