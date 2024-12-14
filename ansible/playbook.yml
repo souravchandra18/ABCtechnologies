@@ -2,7 +2,7 @@
   connection: local
   tasks:
     - name: Ensure the system is up to date
-      apt:
+      yum:
         update_cache: yes
         
     - name: Login to AWS ECR
