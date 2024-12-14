@@ -1,5 +1,10 @@
 pipeline {
     agent any
+    environment {
+        AWS_CREDENTIALS = credentials('aws-credentials')
+        DOCKER_CREDENTIALS = credentials('ecr-credentials')
+        IMAGE_NAME = '149536492184.dkr.ecr.us-east-1.amazonaws.com/demo-app'
+    }
     stages {
         stage('Checkout Code') {
             steps {
@@ -28,8 +33,11 @@ pipeline {
         }
         stage('Push Docker Image') {
             steps {
-                sh 'docker tag demo-app:latest 149536492184.dkr.ecr.us-east-1.amazonaws.com/demo-app:latest'
-                sh 'docker push 149536492184.dkr.ecr.us-east-1.amazonaws.com/demo-app:latest'
+                sh """
+                docker login -u $DOCKER_CREDENTIALS_USR -p $DOCKER_CREDENTIALS_PSW $AWS_CREDENTIALS_USR.dkr.ecr.us-east-1.amazonaws.com
+                docker tag demo-app:latest $IMAGE_NAME:latest
+                docker push $IMAGE_NAME:latest
+                """
             }
         }
     }
