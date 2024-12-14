@@ -1,0 +1,12 @@
+- hosts: localhost
+  tasks:
+    - name: Pull Docker image
+      docker_image:
+        name: 149536492184.dkr.ecr.us-east-1.amazonaws.com/demo-app:latest
+        source: pull
+
+    - name: Create and start container
+      docker_container:
+        name: demo-app-container
+        image: 149536492184.dkr.ecr.us-east-1.amazonaws.com/demo-app:latest
+        state: started
