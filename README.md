@@ -1,2 +1,2 @@
-# ABCtechnologies
-It is a JAVA project
+# abctechnologies code
+"# assignment1" 
