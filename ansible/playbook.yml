@@ -1,12 +1,21 @@
 - hosts: localhost
   tasks:
-    - name: Pull Docker image
+    - name: Login to AWS ECR
+      shell: |
+        aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 149536492184.dkr.ecr.us-east-1.amazonaws.com
+      register: login_result
+      failed_when: login_result.rc != 0
+
+    - name: Pull Docker image from ECR
       docker_image:
         name: 149536492184.dkr.ecr.us-east-1.amazonaws.com/demo-app:latest
         source: pull
+      register: pull_result
 
-    - name: Create and start container
+    - name: Create and start Docker container
       docker_container:
         name: demo-app-container
         image: 149536492184.dkr.ecr.us-east-1.amazonaws.com/demo-app:latest
         state: started
+        ports:
+          - "8080:8080"
