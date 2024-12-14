@@ -46,7 +46,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    ansible-playbook -i $ANSIBLE_INVENTORY ansible/playbook.yml
+                    ansible-playbook -i "localhost," -c local ansible/playbook.yml
                     '''
                 }
             }
