@@ -1,5 +1,10 @@
 - hosts: localhost
+  connection: local
   tasks:
+    - name: Ensure the system is up to date
+      apt:
+        update_cache: yes
+        
     - name: Login to AWS ECR
       shell: |
         aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 149536492184.dkr.ecr.us-east-1.amazonaws.com
