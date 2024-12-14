@@ -46,9 +46,6 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    sudo yum install python3-pip
-                    sudo /usr/bin/python3 -m pip install docker
-                    python3 -m pip show docker
                     ansible-playbook -i "localhost," -c local ansible/playbook.yml
                     '''
                 }
