@@ -4,8 +4,9 @@
     ansible_python_interpreter: /usr/bin/python3
   tasks:
     - name: Ensure the system is up to date
-      yum:
-        update_cache: yes
+      dnf:
+        name: "*"
+        state: latest
         
     - name: Login to AWS ECR
       shell: |
