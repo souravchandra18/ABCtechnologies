@@ -45,7 +45,6 @@ pipeline {
         }
         stage('Prepare Environment') {
             steps {
-                sh 'ansible-galaxy collection install community.docker'
                 sh 'ansible-galaxy collection install kubernetes.core'
             }
         }
