@@ -6,6 +6,9 @@
     - name: Install Kubernetes Collection
       ansible.builtin.shell: ansible-galaxy collection install kubernetes.core
 
+    - name: Install Docker Collection
+      ansible.builtin.shell: ansible-galaxy collection install community.docker
+
     - name: Login to AWS ECR
       ansible.builtin.shell: |
         aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 149536492184.dkr.ecr.us-east-1.amazonaws.com
