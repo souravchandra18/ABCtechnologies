@@ -5,7 +5,7 @@ pipeline {
         DOCKER_CREDENTIALS = credentials('ecr-credentials')
         IMAGE_NAME = '149536492184.dkr.ecr.us-east-1.amazonaws.com/demo-app'
         ANSIBLE_INVENTORY = 'localhost,'  // Use localhost as the inventory for Ansible
-        ANSIBLE_PYTHON_INTERPRETER = '/usr/bin/python3'
+        ANSIBLE_PYTHON_INTERPRETER = '/usr/bin/python'
         KUBE_CONFIG = credentials('kube-config')  // Kubernetes config credential
     }
     stages {
@@ -45,13 +45,8 @@ pipeline {
         }
         stage('Prepare Environment') {
             steps {
-                sh '''
-                sudo yum update -y
-                sudo yum install -y python3 python3-pip
-                pip3 install docker packaging
-                ansible-galaxy collection install community.docker
-                ansible-galaxy collection install kubernetes.core
-                '''
+                sh 'ansible-galaxy collection install community.docker'
+                sh 'ansible-galaxy collection install kubernetes.core'
             }
         }
         stage('Deploy with Ansible') {
