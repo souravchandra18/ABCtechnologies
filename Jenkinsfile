@@ -46,8 +46,8 @@ pipeline {
         stage('Prepare Environment') {
             steps {
                 sh '''
-                sudo apt update
-                sudo apt install -y python3 python3-pip
+                sudo yum update -y
+                sudo yum install -y python3 python3-pip
                 pip3 install docker packaging
                 ansible-galaxy collection install community.docker
                 ansible-galaxy collection install kubernetes.core
