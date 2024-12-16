@@ -43,6 +43,11 @@ pipeline {
                 """
             }
         }
+        stage('Prepare Environment') {
+            steps {
+                sh 'ansible-galaxy collection install kubernetes.core'
+            }
+        }
         stage('Deploy with Ansible') {
             steps {
                 script {
