@@ -53,7 +53,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    ansible-playbook -i "localhost," -c local ansible/playbook.yml
+                    ansible-playbook -i localhost ansible/playbook.yml
                     '''
                 }
             }
