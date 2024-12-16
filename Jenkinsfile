@@ -5,7 +5,7 @@ pipeline {
         DOCKER_CREDENTIALS = credentials('ecr-credentials')
         IMAGE_NAME = '149536492184.dkr.ecr.us-east-1.amazonaws.com/demo-app'
         ANSIBLE_INVENTORY = 'localhost,'  // Use localhost as the inventory for Ansible
-        ANSIBLE_PYTHON_INTERPRETER = '/usr/bin/python2'
+        ANSIBLE_PYTHON_INTERPRETER = '/usr/bin/python'
         KUBE_CONFIG = credentials('kube-config')  // Kubernetes config credential
     }
     stages {
@@ -49,16 +49,6 @@ pipeline {
                     sh '''
                     ansible-playbook -i "localhost," -c local ansible/playbook.yml
                     '''
-                }
-            }
-        }
-        stage('Deploy to Kubernetes') {
-            steps {
-                script {
-                    withKubeConfig(credentialsId: 'kube-config') {
-                        sh 'kubectl apply -f kubernetes/deployment.yml'
-                        sh 'kubectl apply -f kubernetes/service.yml'
-                    }
                 }
             }
         }
