@@ -1,11 +1,11 @@
 - hosts: localhost
   connection: local
   vars:
-    ansible_python_interpreter: /usr/bin/python3
+    ansible_python_interpreter: /usr/bin/python
   tasks:
     - name: Install Kubernetes Collection
       ansible.builtin.shell: ansible-galaxy collection install kubernetes.core
-
+      
     - name: Install Docker Collection
       ansible.builtin.shell: ansible-galaxy collection install community.docker
 
