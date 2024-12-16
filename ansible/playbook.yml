@@ -5,9 +5,6 @@
   tasks:
     - name: Install Kubernetes Collection
       ansible.builtin.shell: ansible-galaxy collection install kubernetes.core
-      
-    - name: Install Docker Collection
-      ansible.builtin.shell: ansible-galaxy collection install community.docker
 
     - name: Login to AWS ECR
       ansible.builtin.shell: |
@@ -16,12 +13,12 @@
       failed_when: login_result.rc != 0
 
     - name: Pull Docker image
-      community.docker.docker_image:
+      docker_image:
         name: 149536492184.dkr.ecr.us-east-1.amazonaws.com/demo-app:latest
         source: pull
 
     - name: Create and start Docker container
-      community.docker.docker_container:
+      docker_container:
         name: demo-app-container
         image: 149536492184.dkr.ecr.us-east-1.amazonaws.com/demo-app:latest
         state: started
