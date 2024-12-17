@@ -1,8 +1,14 @@
 - hosts: localhost
-  #connection: local
   vars:
-    ansible_python_interpreter: /usr/bin/python
+    ansible_python_interpreter: /usr/bin/python3  # Use Python 3 explicitly
   tasks:
+    - name: Install required Python libraries
+      pip:
+        name:
+          - docker
+          - kubernetes
+        executable: pip3  # Ensure pip3 is used for Python3
+
     - name: Install Kubernetes Collection
       ansible.builtin.shell: ansible-galaxy collection install kubernetes.core
 
@@ -13,17 +19,17 @@
       failed_when: login_result.rc != 0
 
     - name: Pull Docker image
-      docker_image:
+      community.docker.docker_image:
         name: 149536492184.dkr.ecr.us-east-1.amazonaws.com/demo-app:latest
         source: pull
 
     - name: Create and start Docker container
-      docker_container:
+      community.docker.docker_container:
         name: demo-app-container
         image: 149536492184.dkr.ecr.us-east-1.amazonaws.com/demo-app:latest
         state: started
         ports:
-          - "8080:8080"
+          - '8080:8080'
 
     - name: Deploy Kubernetes Deployment
       kubernetes.core.k8s:
