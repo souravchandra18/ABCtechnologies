@@ -37,7 +37,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 sh """
-                docker login -u ${DOCKER_CREDENTIALS_USR} -p ${DOCKER_CREDENTIALS_PSW} 149536492184.dkr.ecr.us-east-1.amazonaws.com
+                aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 149536492184.dkr.ecr.us-east-1.amazonaws.com
                 docker tag demo-app:latest $IMAGE_NAME:latest
                 docker push $IMAGE_NAME:latest
                 """
