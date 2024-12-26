@@ -1,5 +1,13 @@
 pipeline {
     agent any
+
+    tools {
+        maven 'maven-3.6.3'
+    }
+    environment {
+        MAVEN_OPTS = "--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED"
+    }
+    
     stages {
         
         stage('Clone Code') {
