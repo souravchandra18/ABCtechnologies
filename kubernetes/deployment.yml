@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demo-app-deployment
+  name: tomcat-deployment
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: demo-app
+      app: tomcat-app
   template:
     metadata:
       labels:
-        app: demo-app
+        app: tomcat-app
     spec:
       containers:
-      - name: demo-app-container
-        image: 149536492184.dkr.ecr.us-east-1.amazonaws.com/demo-app:latest
+      - name: tomcat
+        image: souravchandra18/tomcat-app:latest
         ports:
         - containerPort: 8080
