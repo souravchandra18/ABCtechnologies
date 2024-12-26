@@ -38,8 +38,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    docker build -t souravchandra18/tomcat-app:latest .
-                    docker tag souravchandra18/tomcat-app:latest
+                    docker build -t souravchandra18/tomcat-app:latest . 
                     '''
                 }
             }
