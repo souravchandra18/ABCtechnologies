@@ -43,7 +43,6 @@ pipeline {
                     sh '''
                     echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
                     docker push souravchandra18/tomcat-app:latest
-                    docker push souravchandra18/tomcat-app:latest
                     '''
                 }
             }
