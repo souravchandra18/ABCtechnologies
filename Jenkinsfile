@@ -56,22 +56,11 @@ pipeline {
             }
         }
 
-        stage('Run Ansible Playbook') {
-            steps {
-                script {
-                    sh '''
-                    ansible-playbook -i ansible/inventory.ini ansible/playbook.yml
-                    '''
-                }
-            }
-        }
-
         stage('Deploy to Kubernetes') {
             steps {
                 withCredentials([file(credentialsId: 'kubeconfig-credentials-id', variable: 'KUBECONFIG')]) {
                     sh '''
-                    kubectl apply -f kubernetes/deployment.yml
-                    kubectl apply -f kubernetes/service.yml
+                    ansible-playbook -i ansible/inventory.ini ansible/playbook.yml
                     '''
                 }
             }
