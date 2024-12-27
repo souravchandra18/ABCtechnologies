@@ -4,12 +4,13 @@ pipeline {
     tools {
         maven 'maven-3.6.3'
     }
+
     environment {
         MAVEN_OPTS = "--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED"
     }
-    
+
     stages {
-        
+
         stage('Clone Code') {
             steps {
                 git branch: 'main', url: 'https://github.com/souravchandra18/ABCtechnologies.git'
@@ -38,7 +39,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    docker build -t souravchandra18/tomcat-app:latest . 
+                    docker build -t souravchandra18/tomcat-app:latest .
                     '''
                 }
             }
@@ -67,11 +68,12 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-            withCredentials([file(credentialsId: 'kubeconfig-credentials-id', variable: 'KUBECONFIG')])  {
-                sh '''
-                kubectl apply -f kubernetes/deployment.yml
-                kubectl apply -f kubernetes/service.yml
-                '''
+                withCredentials([file(credentialsId: 'kubeconfig-credentials-id', variable: 'KUBECONFIG')]) {
+                    sh '''
+                    kubectl apply -f kubernetes/deployment.yml
+                    kubectl apply -f kubernetes/service.yml
+                    '''
+                }
             }
         }
     }
