@@ -1,4 +1,4 @@
-pipeline {
+ttylpipeline {
     agent any
 
     tools {
@@ -66,7 +66,7 @@ pipeline {
         }
 
         stage('Deploy to Kubernetes') {
-            steps 
+            steps {
             withCredentials([file(credentialsId: 'kubeconfig-credentials-id', variable: 'KUBECONFIG')])  {
                 sh '''
                 kubectl apply -f kubernetes/deployment.yml
