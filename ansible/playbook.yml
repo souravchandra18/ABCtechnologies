@@ -15,7 +15,6 @@
         ports:
           - "8081:8081"
 
-
     - name: Deploy Kubernetes Deployment
       kubernetes.core.k8s:
         state: present
