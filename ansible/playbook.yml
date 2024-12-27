@@ -14,3 +14,14 @@
         image: "souravchandra18/tomcat-app:latest"
         ports:
           - "8081:8081"
+
+
+    - name: Deploy Kubernetes Deployment
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', 'kubernetes/deployment.yml') }}"
+
+    - name: Deploy Kubernetes Service
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', 'kubernetes/service.yml') }}"
