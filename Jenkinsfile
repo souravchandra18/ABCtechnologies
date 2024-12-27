@@ -1,4 +1,4 @@
-ttylpipeline {
+pipeline {
     agent any
 
     tools {
